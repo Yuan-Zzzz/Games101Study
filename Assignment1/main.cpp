@@ -31,12 +31,23 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
     Eigen::Matrix4f rotation;
     // 旋转角度
     float angle = rotation_angle;
-    //角度转弧度
-    angle = angle * MY_PI / 180.f; 
-    // 根据旋转角度设置旋转矩阵
+    // 角度转弧度
+    angle = angle * MY_PI / 180.f;
+    // 根据旋转角度设置旋转矩阵（绕z轴旋转）
     rotation << cos(angle), -sin(angle), 0, 0,
         sin(angle), cos(angle), 0, 0,
         0, 0, 1, 0,
+        0, 0, 0, 1;
+    //（绕y轴旋转）
+    rotation << cos(angle), 0, -sin(angle), 0,
+        0, 1, 0, 0,
+        sin(angle), 0, cos(angle), 0,
+        0, 0, 0, 1;
+    //（绕x轴旋转）
+    rotation << 
+        1, 0, 0, 0,
+        cos(angle),-sin(angle),0, 0,
+        sin(angle),cos(angle), 0,0,
         0, 0, 0, 1;
 
     return model * rotation;
@@ -53,8 +64,8 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
     // Create the projection matrix for the given parameters.
     // Then return it.
 
-    // 这个是投影转正交矩阵
-    Eigen::Matrix4f M_p = Eigen::Matrix4f::Identity(); 
+    // 投影转正交矩阵
+    Eigen::Matrix4f M_p = Eigen::Matrix4f::Identity();
     M_p << zNear, 0, 0, 0,
         0, zNear, 0, 0,
         0, 0, zNear + zFar, (-1.0 * zNear * zFar),
@@ -77,7 +88,7 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
         0, 1, 0, (-1.0) * (t + b) / 2,
         0, 0, 1, (-1.0) * (zNear + zFar) / 2,
         0, 0, 0, 1;
-    projection = M_s * M_t * M_p * projection; // 左乘所以是先进行透视转正交，然后位移，然后规范化
+    projection = M_s * M_t * M_p * projection; // 这里是左乘所以是先进行透视转正交，然后位移，然后规范化
     // projection = projection*M_p*M_t*M_s;
 
     return projection;
