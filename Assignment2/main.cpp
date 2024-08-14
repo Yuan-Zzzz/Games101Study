@@ -28,10 +28,44 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
     return model;
 }
 
-Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)
+
+//投影变换
+Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,float zNear, float zFar)
 {
-    // TODO: Copy-paste your implementation from the previous assignment.
-    Eigen::Matrix4f projection;
+    // Students will implement this function
+
+    Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
+
+    // TODO: Implement this function
+    // Create the projection matrix for the given parameters.
+    // Then return it.
+
+    // 投影转正交矩阵
+    Eigen::Matrix4f M_p = Eigen::Matrix4f::Identity();
+    M_p << zNear, 0, 0, 0,
+        0, zNear, 0, 0,
+        0, 0, zNear + zFar, (-1.0 * zNear * zFar),
+        0, 0, 1, 0;
+    //[l,r]   [b,t]    [f,n]
+    float angle = eye_fov * MY_PI / 180; // 角度转弧度
+    float t = tan(angle / 2) * -zNear;   // 更具直角三角形性质求tb（高）
+    float b = -1.0 * t;
+    float r = t * aspect_ratio; // 根据宽高比求（宽）
+    float l = -1.0 * r;
+
+    Eigen::Matrix4f M_s = Eigen::Matrix4f::Identity(); // 将立方体进行规范化（-1，1）
+    M_s << 2 / (r - l), 0, 0, 0,
+        0, 2 / (t - b), 0, 0,
+        0, 0, 2 / (zNear - zFar), 0,
+        0, 0, 0, 1;
+
+    Eigen::Matrix4f M_t = Eigen::Matrix4f::Identity(); // 将三角形位移到原点
+    M_t << 1, 0, 0, (-1.0) * (r + l) / 2,
+        0, 1, 0, (-1.0) * (t + b) / 2,
+        0, 0, 1, (-1.0) * (zNear + zFar) / 2,
+        0, 0, 0, 1;
+    projection = M_s * M_t * M_p * projection; // 这里是左乘所以是先进行透视转正交，然后位移，然后规范化
+    // projection = projection*M_p*M_t*M_s;
 
     return projection;
 }

@@ -1,0 +1,3 @@
+/usr/games/Games101Study/Assignment2/build/CMakeFiles/Rasterizer.dir
+/usr/games/Games101Study/Assignment2/build/CMakeFiles/edit_cache.dir
+/usr/games/Games101Study/Assignment2/build/CMakeFiles/rebuild_cache.dir
