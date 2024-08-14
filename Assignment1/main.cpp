@@ -6,21 +6,24 @@
 
 constexpr double MY_PI = 3.1415926;
 
+// 视图变换
 Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)
 {
     Eigen::Matrix4f view = Eigen::Matrix4f::Identity();
 
     Eigen::Matrix4f translate;
+    //平移至原点
     translate << 1, 0, 0, -eye_pos[0],
-     0, 1, 0, -eye_pos[1]
-     , 0, 0, 1,-eye_pos[2],
-      0, 0, 0, 1;
+        0, 1, 0, -eye_pos[1],
+        0, 0, 1, -eye_pos[2],
+        0, 0, 0, 1;
 
     view = translate * view;
 
     return view;
 }
 
+//模型变换
 Eigen::Matrix4f get_model_matrix(float rotation_angle)
 {
     Eigen::Matrix4f model = Eigen::Matrix4f::Identity();
@@ -40,21 +43,21 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
         sin(angle), cos(angle), 0, 0,
         0, 0, 1, 0,
         0, 0, 0, 1;
-    //（绕y轴旋转）
+    // （绕y轴旋转）
     rotation << cos(angle), 0, -sin(angle), 0,
         0, 1, 0, 0,
         sin(angle), 0, cos(angle), 0,
         0, 0, 0, 1;
-    //（绕x轴旋转）
-    rotation << 
-        1, 0, 0, 0,
-        cos(angle),-sin(angle),0, 0,
-        sin(angle),cos(angle), 0,0,
+    // （绕x轴旋转）
+    rotation << 1, 0, 0, 0,
+        cos(angle), -sin(angle), 0, 0,
+        sin(angle), cos(angle), 0, 0,
         0, 0, 0, 1;
 
     return model * rotation;
 }
 
+//投影变换
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
                                       float zNear, float zFar)
 {
