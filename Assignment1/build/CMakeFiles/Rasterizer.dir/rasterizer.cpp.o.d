@@ -1,6 +1,7 @@
 CMakeFiles/Rasterizer.dir/rasterizer.cpp.o: \
- /usr/games/Assignment1/rasterizer.cpp /usr/include/stdc-predef.h \
- /usr/include/c++/11/algorithm /usr/include/c++/11/utility \
+ /usr/games/Games101Study/Assignment1/rasterizer.cpp \
+ /usr/include/stdc-predef.h /usr/include/c++/11/algorithm \
+ /usr/include/c++/11/utility \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -98,9 +99,10 @@ CMakeFiles/Rasterizer.dir/rasterizer.cpp.o: \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
  /usr/include/c++/11/pstl/execution_defs.h \
- /usr/games/Assignment1/rasterizer.hpp \
- /usr/games/Assignment1/Triangle.hpp /usr/include/eigen3/Eigen/Eigen \
- /usr/include/eigen3/Eigen/Dense /usr/include/eigen3/Eigen/Core \
+ /usr/games/Games101Study/Assignment1/rasterizer.hpp \
+ /usr/games/Games101Study/Assignment1/Triangle.hpp \
+ /usr/include/eigen3/Eigen/Eigen /usr/include/eigen3/Eigen/Dense \
+ /usr/include/eigen3/Eigen/Core \
  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
  /usr/include/c++/11/cmath /usr/include/math.h \

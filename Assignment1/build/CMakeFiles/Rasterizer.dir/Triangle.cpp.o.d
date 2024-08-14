@@ -1,7 +1,9 @@
 CMakeFiles/Rasterizer.dir/Triangle.cpp.o: \
- /usr/games/Assignment1/Triangle.cpp /usr/include/stdc-predef.h \
- /usr/games/Assignment1/Triangle.hpp /usr/include/eigen3/Eigen/Eigen \
- /usr/include/eigen3/Eigen/Dense /usr/include/eigen3/Eigen/Core \
+ /usr/games/Games101Study/Assignment1/Triangle.cpp \
+ /usr/include/stdc-predef.h \
+ /usr/games/Games101Study/Assignment1/Triangle.hpp \
+ /usr/include/eigen3/Eigen/Eigen /usr/include/eigen3/Eigen/Dense \
+ /usr/include/eigen3/Eigen/Core \
  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
  /usr/include/c++/11/cmath \

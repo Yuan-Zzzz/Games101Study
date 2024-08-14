@@ -27,7 +27,19 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
     // Create the model matrix for rotating the triangle around the Z axis.
     // Then return it.
 
-    return model;
+    // 旋转矩阵
+    Eigen::Matrix4f rotation;
+    // 旋转角度
+    float angle = rotation_angle;
+    //角度转弧度
+    angle = angle * MY_PI / 180.f; 
+    // 根据旋转角度设置旋转矩阵
+    rotation << cos(angle), -sin(angle), 0, 0,
+        sin(angle), cos(angle), 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1;
+
+    return model * rotation;
 }
 
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
@@ -41,19 +53,48 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
     // Create the projection matrix for the given parameters.
     // Then return it.
 
+    // 这个是投影转正交矩阵
+    Eigen::Matrix4f M_p = Eigen::Matrix4f::Identity(); 
+    M_p << zNear, 0, 0, 0,
+        0, zNear, 0, 0,
+        0, 0, zNear + zFar, (-1.0 * zNear * zFar),
+        0, 0, 1, 0;
+    //[l,r]   [b,t]    [f,n]
+    float angle = eye_fov * MY_PI / 180; // 角度转弧度
+    float t = tan(angle / 2) * -zNear;   // 更具直角三角形性质求tb（高）
+    float b = -1.0 * t;
+    float r = t * aspect_ratio; // 根据宽高比求（宽）
+    float l = -1.0 * r;
+
+    Eigen::Matrix4f M_s = Eigen::Matrix4f::Identity(); // 将立方体进行规范化（-1，1）
+    M_s << 2 / (r - l), 0, 0, 0,
+        0, 2 / (t - b), 0, 0,
+        0, 0, 2 / (zNear - zFar), 0,
+        0, 0, 0, 1;
+
+    Eigen::Matrix4f M_t = Eigen::Matrix4f::Identity(); // 将三角形位移到原点
+    M_t << 1, 0, 0, (-1.0) * (r + l) / 2,
+        0, 1, 0, (-1.0) * (t + b) / 2,
+        0, 0, 1, (-1.0) * (zNear + zFar) / 2,
+        0, 0, 0, 1;
+    projection = M_s * M_t * M_p * projection; // 左乘所以是先进行透视转正交，然后位移，然后规范化
+    // projection = projection*M_p*M_t*M_s;
+
     return projection;
 }
 
-int main(int argc, const char** argv)
+int main(int argc, const char **argv)
 {
     float angle = 0;
     bool command_line = false;
     std::string filename = "output.png";
 
-    if (argc >= 3) {
+    if (argc >= 3)
+    {
         command_line = true;
         angle = std::stof(argv[2]); // -r by default
-        if (argc == 4) {
+        if (argc == 4)
+        {
             filename = std::string(argv[3]);
         }
         else
@@ -74,7 +115,8 @@ int main(int argc, const char** argv)
     int key = 0;
     int frame_count = 0;
 
-    if (command_line) {
+    if (command_line)
+    {
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
 
         r.set_model(get_model_matrix(angle));
@@ -90,7 +132,8 @@ int main(int argc, const char** argv)
         return 0;
     }
 
-    while (key != 27) {
+    while (key != 27)
+    {
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
 
         r.set_model(get_model_matrix(angle));
@@ -106,10 +149,12 @@ int main(int argc, const char** argv)
 
         std::cout << "frame count: " << frame_count++ << '\n';
 
-        if (key == 'a') {
+        if (key == 'a')
+        {
             angle += 10;
         }
-        else if (key == 'd') {
+        else if (key == 'd')
+        {
             angle -= 10;
         }
     }

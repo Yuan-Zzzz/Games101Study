@@ -1,5 +1,6 @@
-CMakeFiles/Rasterizer.dir/main.cpp.o: /usr/games/Assignment1/main.cpp \
- /usr/include/stdc-predef.h /usr/games/Assignment1/Triangle.hpp \
+CMakeFiles/Rasterizer.dir/main.cpp.o: \
+ /usr/games/Games101Study/Assignment1/main.cpp /usr/include/stdc-predef.h \
+ /usr/games/Games101Study/Assignment1/Triangle.hpp \
  /usr/include/eigen3/Eigen/Eigen /usr/include/eigen3/Eigen/Dense \
  /usr/include/eigen3/Eigen/Core \
  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
@@ -476,7 +477,8 @@ CMakeFiles/Rasterizer.dir/main.cpp.o: /usr/games/Assignment1/main.cpp \
  /usr/include/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h \
  /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
  /usr/include/c++/11/bits/allocated_ptr.h \
- /usr/include/c++/11/bits/list.tcc /usr/games/Assignment1/rasterizer.hpp \
+ /usr/include/c++/11/bits/list.tcc \
+ /usr/games/Games101Study/Assignment1/rasterizer.hpp \
  /usr/include/c++/11/iostream \
  /usr/local/include/opencv4/opencv2/opencv.hpp \
  /usr/local/include/opencv4/opencv2/opencv_modules.hpp \
